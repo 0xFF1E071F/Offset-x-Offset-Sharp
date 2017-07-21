@@ -1,0 +1,4 @@
+LIBRARY oxoSharp.DLL
+EXPORTS 	Process
+		FreeTempBuffer
+		FillFixedRange
