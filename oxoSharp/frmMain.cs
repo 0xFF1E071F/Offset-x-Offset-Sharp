@@ -231,6 +231,7 @@ namespace oxoSharp
 
         private void btnResult_Click(object sender, EventArgs e)
         {
+            OxoCore.Session.output = txtOutput.Text;
             using (frmResult result = new frmResult(OxoCore.ListUndetectedIntervals()))
             {
                 RangeOptions(result);

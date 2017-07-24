@@ -212,7 +212,7 @@ namespace oxoSharp.Core
         // int[i,1] = end
         public int[][] ListUndetectedIntervals()
         {
-            if (Session.output == "") return new int[0][];
+            if (Session.output == "" || !Directory.Exists(Session.output)) return null;
             string[] remainingFiles = Directory.GetFiles(Session.output);
             int[][] remainingIntervals = new int[remainingFiles.Length][];
             for (int i = 0; i < remainingFiles.Length; i++)

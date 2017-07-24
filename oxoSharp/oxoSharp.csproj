@@ -48,7 +48,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Core\AutoProcess.cs" />
-    <Compile Include="Core\Processor.cs" />
     <Compile Include="frmAddRange.cs">
       <SubType>Form</SubType>
     </Compile>

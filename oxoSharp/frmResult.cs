@@ -34,10 +34,12 @@ namespace oxoSharp
 
         private void frmResult_Load(object sender, EventArgs e)
         {
+            if (UndetectedIntervals == null || UndetectedIntervals.Length == 0) return;
             int i = 0;
             Color[] colors = new Color[] { Color.LightBlue, Color.LightSkyBlue };
             listView1.Items.AddRange(
                 (from undetected in UndetectedIntervals
+                 where undetected!=null
                  select new ListViewItem(
                      new string[]{
                             undetected[0].ToString("X"),
