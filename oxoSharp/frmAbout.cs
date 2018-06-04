@@ -25,6 +25,7 @@ namespace oxoSharp
                                                  new int[] { 440, 460 },
                                                  new int[] {470,480}
                                                 };
+            byteMap1.ReDraw();
             if (CheckBox)
                 btnOk.Enabled = false;
             else
@@ -38,6 +39,7 @@ namespace oxoSharp
         private void frmAbout_Load(object sender, EventArgs e)
         {
             lblAbout.Text += GlobalDataAndMethods.VersionAndDate();
+            byteMap1.Refresh();
         }
 
         private void btnOk_Click(object sender, EventArgs e)

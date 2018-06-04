@@ -1064,6 +1064,9 @@ namespace oxoSharp
 
         private void StartAutoProcessForm()
         {
+            if (OxoCore.IsBusy() && MessageBox.Show(this, "Busy", "Program working in the background, force stop?", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                OxoCore.StopWork();
+            
             if (!OxoCore.IsBusy())
                 using (frmAuto frmAuto = new frmAuto(ReadSession()))
                 {
