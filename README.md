@@ -23,7 +23,7 @@ This explains how the "Fixed size" mode works, it this fails because of the impo
 Drop a file in the "File" textbox
 In variable range input a range (or leave the default)
 
-![alt text](https://raw.githubusercontent.com/cobrce/Offset-x-Offset-Sharp/master/screenshots/1_variable_range.png)
+![alt text](https://raw.githubusercontent.com/cobrce/Offset-x-Offset-Sharp/master/screenshots/1_variable_range_.png)
 
 (optional) You can select a fixed range from sections (in first tab) or enter it manually (in the second tab), if you don't know what to put don't use it
 
