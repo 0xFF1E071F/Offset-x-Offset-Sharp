@@ -1,4 +1,5 @@
 # Offset-x-Offset-Sharp
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=flat)](https://github.com/cobrce/Offset-x-Offset-Sharp/blob/master/LICENSE)
 
 ## Description 
 Offset x Offset sharp is the C# version of the program (offset x offset) that I've written in assembly around 2011 
