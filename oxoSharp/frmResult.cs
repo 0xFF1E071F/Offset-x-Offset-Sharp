@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -39,19 +40,20 @@ namespace oxoSharp
             Color[] colors = new Color[] { Color.LightBlue, Color.LightSkyBlue };
             listView1.Items.AddRange(
                 (from undetected in UndetectedIntervals
-                 where undetected!=null
+                 where undetected != null
                  select new ListViewItem(
                      new string[]{
                             undetected[0].ToString("X"),
                             undetected[1].ToString("X"),
                             (undetected[1] - undetected[0]).ToString("X")
-                            }) { BackColor = colors[i++ % 2], Tag = new int[] { undetected[0], undetected[1], undetected[1] - undetected[0] } }).ToArray());
+                            })
+                 { BackColor = colors[i++ % 2], Tag = new int[] { undetected[0], undetected[1], undetected[1] - undetected[0] } }).ToArray());
         }
 
         private void listView1_ColumnClick(object sender, ColumnClickEventArgs e)
         {
             listView1.Sorting = (listView1.Sorting == SortOrder.Descending) ? SortOrder.Ascending : SortOrder.Descending;
-            listView1.ListViewItemSorter = (IComparer)new Comparer(e.Column, listView1.Sorting);
+            listView1.ListViewItemSorter = new Comparer(e.Column, listView1.Sorting);
             listView1.Sort();
         }
 
@@ -133,6 +135,18 @@ namespace oxoSharp
             this.shift = e.Shift;
         }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            string data = ConvertUndetectedRangesToText();
+            saveFileDialog1.FileName = string.Format(
+                "Result from {0:X8} to {1:X8} ({2} entry).txt",
+                UndetectedIntervals.First()[0],
+                UndetectedIntervals.Last()[1],
+                UndetectedIntervals.Length
+                );
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+                File.WriteAllText(saveFileDialog1.FileName, data);
+        }
     }
     public class Comparer : IComparer
     {

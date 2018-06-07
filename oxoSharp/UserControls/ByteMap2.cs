@@ -16,12 +16,12 @@ namespace oxoSharp.UserControls
     {
         public Color BackColor1 = Color.FromArgb(0xff, 0x22, 0x22, 0x22);
         public Color BackColor2 = Color.FromArgb(0x60, 0xFF, 0xFF, 0xFF);
-        public Brush FullRangeBrush = Brushes.DodgerBlue;
-        public Brush SmallRangeBrush = Brushes.Red;
-        public Brush PeHeaderBrush = Brushes.Orange;
-        public Brush EOFbrush = Brushes.Chartreuse;
-        public Brush FixedRangeBrush1 = new SolidBrush(Color.DarkGray);
-        public Brush FixedRangeBrush2 = new SolidBrush(Color.LightGray);
+        private Brush FullRangeBrush = Brushes.DodgerBlue;
+        private Brush SmallRangeBrush = Brushes.Red;
+        private Brush PeHeaderBrush = Brushes.Orange;
+        private Brush EOFbrush = Brushes.Chartreuse;
+        private Brush FixedRangeBrush1 = new SolidBrush(Color.DarkGray);
+        private Brush FixedRangeBrush2 = new SolidBrush(Color.LightGray);
         public int GradientHeight = 10;
         public int RectangleSize = 7;
 
@@ -33,11 +33,11 @@ namespace oxoSharp.UserControls
         private int _SmallRangeWidth = 0;
         public int[][] FixedRanges;
 
-        private Dictionary<RegionType, string> RegionsNames = new Dictionary<RegionType, string>();
+        public Dictionary<RegionType, string> RegionsNames = new Dictionary<RegionType, string>();
         private Point PreviousMouseLocation = new Point(-1, -1);
         private RectangleF[] _rectangles;
         private Dictionary<RectangleF, RegionType> _rectanglesWithRegionType;
-        private Dictionary<RegionType, Brush> RegionsBrushes = new Dictionary<RegionType, Brush>();
+        public Dictionary<RegionType, Brush> RegionsBrushes = new Dictionary<RegionType, Brush>();
 
         public ByteMap2()
         {
@@ -47,10 +47,6 @@ namespace oxoSharp.UserControls
             this.DoubleBuffered = true;
         }
 
-        public void CustomizeRedRangeName(string Name)
-        {
-            RegionsNames[RegionType.Selected] = Name;
-        }
         protected override void OnResize(EventArgs e)
         {
             base.OnResize(e);
@@ -421,7 +417,7 @@ namespace oxoSharp.UserControls
             }
             return false;
         }
-        private enum RegionType
+        public enum RegionType
         {
             NotSelected = 0,
             Selected,

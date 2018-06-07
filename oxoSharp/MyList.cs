@@ -10,22 +10,22 @@ namespace oxoSharp
     {
         public event Action ModifiedListEventHandler;
 
-        public void Add(T item)
+        new public void Add(T item)
         {
             base.Add(item);
             ModifiedListEventHandler();
         }
-        public void AddRange(IEnumerable<T> collection)
+        new public void AddRange(IEnumerable<T> collection)
         {
             base.AddRange(collection);
             ModifiedListEventHandler();
         }
-        public void Clear()
+        new public void Clear()
         {
             base.Clear();
             ModifiedListEventHandler();
         }
-        public void Remove(T item)
+        new public void Remove(T item)
         {
             base.Remove(item);
             ModifiedListEventHandler();

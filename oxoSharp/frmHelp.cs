@@ -19,7 +19,24 @@ namespace oxoSharp
             KeyPreview = true;
             this.help = help;
             lblDescription.Text = help.Description;
-            byteMap21.CustomizeRedRangeName("Filled range");
+            CustomizeVariableRange();
+            CustomizeFixedRange();
+            byteMap21.FixedRanges = new int[][] { new int[] { this.help.Start, this.help.End } };
+        }
+
+        private void CustomizeFixedRange()
+        {
+            CustomizeRange(UserControls.ByteMap2.RegionType.FixedRange1, "Variable range", Brushes.Red);
+        }
+
+        private void CustomizeVariableRange()
+        {
+            CustomizeRange(UserControls.ByteMap2.RegionType.Selected, "Filled range", Brushes.Orange);
+        }
+        private void CustomizeRange(UserControls.ByteMap2.RegionType type, string message, Brush brush)
+        {
+            byteMap21.RegionsNames[type] = message;
+            byteMap21.RegionsBrushes[type] = brush;
         }
 
         private void frmHelp_KeyPress(object sender, KeyPressEventArgs e)

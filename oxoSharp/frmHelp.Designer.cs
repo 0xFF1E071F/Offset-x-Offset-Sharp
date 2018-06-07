@@ -40,9 +40,10 @@
             // byteMap21
             // 
             this.byteMap21.endOffset = 0;
-            this.byteMap21.Location = new System.Drawing.Point(12, 43);
+            this.byteMap21.Location = new System.Drawing.Point(16, 53);
+            this.byteMap21.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
             this.byteMap21.Name = "byteMap21";
-            this.byteMap21.Size = new System.Drawing.Size(155, 141);
+            this.byteMap21.Size = new System.Drawing.Size(204, 169);
             this.byteMap21.SizeOfTheFile = 0;
             this.byteMap21.SmallRangeWidth = 0;
             this.byteMap21.startOffset = 0;
@@ -50,9 +51,10 @@
             // 
             // btnPrev
             // 
-            this.btnPrev.Location = new System.Drawing.Point(12, 190);
+            this.btnPrev.Location = new System.Drawing.Point(16, 234);
+            this.btnPrev.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnPrev.Name = "btnPrev";
-            this.btnPrev.Size = new System.Drawing.Size(75, 23);
+            this.btnPrev.Size = new System.Drawing.Size(100, 28);
             this.btnPrev.TabIndex = 1;
             this.btnPrev.Text = "<";
             this.btnPrev.UseVisualStyleBackColor = true;
@@ -60,9 +62,10 @@
             // 
             // btnNext
             // 
-            this.btnNext.Location = new System.Drawing.Point(93, 190);
+            this.btnNext.Location = new System.Drawing.Point(124, 234);
+            this.btnNext.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnNext.Name = "btnNext";
-            this.btnNext.Size = new System.Drawing.Size(75, 23);
+            this.btnNext.Size = new System.Drawing.Size(100, 28);
             this.btnNext.TabIndex = 2;
             this.btnNext.Text = ">";
             this.btnNext.UseVisualStyleBackColor = true;
@@ -71,17 +74,20 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(9, 9);
+            this.label1.Location = new System.Drawing.Point(12, 11);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(303, 13);
+            this.label1.Size = new System.Drawing.Size(375, 34);
             this.label1.TabIndex = 3;
-            this.label1.Text = "The red rectangles represent the filled range (not the full range)";
+            this.label1.Text = "The red rectangles represent the variable range\r\nThe orange recrangles represent " +
+    "the currently filled range";
             // 
             // lblDescription
             // 
-            this.lblDescription.Location = new System.Drawing.Point(173, 43);
+            this.lblDescription.Location = new System.Drawing.Point(231, 53);
+            this.lblDescription.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblDescription.Name = "lblDescription";
-            this.lblDescription.Size = new System.Drawing.Size(149, 170);
+            this.lblDescription.Size = new System.Drawing.Size(199, 209);
             this.lblDescription.TabIndex = 4;
             this.lblDescription.Text = "label2";
             // 
@@ -91,15 +97,16 @@
             // 
             // frmHelp
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(334, 223);
+            this.ClientSize = new System.Drawing.Size(445, 274);
             this.Controls.Add(this.lblDescription);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnNext);
             this.Controls.Add(this.btnPrev);
             this.Controls.Add(this.byteMap21);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "frmHelp";
