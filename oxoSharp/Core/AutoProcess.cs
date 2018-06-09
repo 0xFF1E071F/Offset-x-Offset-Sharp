@@ -6,21 +6,21 @@ using System.Text;
 /*
 *      how it works (see Worker_DoWork):
 *      (this is a draft, more steps need to be added)
-*          
-*          process -> scan -> wait -> no file -yes-> larger than max size -no-> is there auto fixed ranges -no-> Done
+*         [lblProcess]   [lblScan]
+*          process -> scan -> wait -> no file -yes-> larger than max size -no-> is there auto fixed ranges -no-> Done [lblDone]
 *              ^                            | no                   | yes                        | yes
 *              |                            v                      |                            |
 *              <--------------------- take result[index]           |                            |
 *              ^                                                   v                            |
 *              <-----------------------------------split range to variable + fixed              |
-*                                                                  ^                            |
+*                                                     [lblSplit]   ^                            |
 *                                                                  |                            v
 *                                                                  |               clear added fixed ranges
 *                                                                  |                            |
 *                                                                  |                            v
 *                                                                  |              set signature as fixed range
 *                                                                  |                            |
-*                                                                  |                            v
+*                                                                  |            [lblUpdate]     v
 *                                                                  <-------exclude signature range from variable range
 */
 
@@ -29,37 +29,52 @@ using System.Text;
  *  use inverted mode
  *  (not sure) make inverted mode available for the user
  * 
- */ 
+ */
 namespace oxoSharp.Core
 {
     class AutoProcess : oxoCore
     {
 
-        List<int[]> Signatures = new List<int[]>();
+        private event ProgressChangedEventHandler StateCallBack;
+        List<int[]> _signatures = new List<int[]>();
+        public int[][] Singatures
+        {
+            get
+            {
+                if (_signatures.Count == 0)
+                    return new int[][] { new int[] { Session.start, Session.end } };
+                return _signatures.ToArray();
+            }
+        }
 
         Random random = new Random();
-        public AutoProcess(ProgressChangedEventHandler ProgressCallBack, RunWorkerCompletedEventHandler WorkCompletedCallBack, bool CreateFiles = true)
+        public AutoProcess(ProgressChangedEventHandler ProgressCallBack, RunWorkerCompletedEventHandler WorkCompletedCallBack, ProgressChangedEventHandler StateCallBack, bool CreateFiles = true)
             : base(ProgressCallBack, WorkCompletedCallBack, CreateFiles)
         {
-
+            this.StateCallBack += StateCallBack;
         }
         protected override void worker_DoWork(object sender, DoWorkEventArgs e)
         {
+            _signatures.Clear();
             /// use unkSize
 
             Config cfg = GlobalDataAndMethods.Config;
-            while (true)
+            while (_continue)
             {
                 //    process();
+                SendState("process");
                 base.worker_DoWork(sender, e);
+
                 //scan();
                 //wait();
+                SendState("scan");
                 GlobalDataAndMethods.Scan(true);
 
                 //if (!noFile)
-                if (!NextInterval())
+                if (NextInterval())
                 {
-                    //    TakeResulte[index]; //already done by NextInterval();
+                    SendState("next");
+                    //    TakeResult[index]; //already done by NextInterval();
                 }
                 else
                 {
@@ -67,15 +82,17 @@ namespace oxoSharp.Core
                     {
                         if ((base.Session.end - base.Session.start) > cfg.SignatureMaxSize)
                         {
-                            // SplitRaneToVarAndFixed();
+                            SendState("split");
+                            // SplitToVarAndFixed();
                         }
                         else
                         {
                             SaveSignature();
                             if (Session.AutoAddedFixedRanges.Count > 0)
                             {
+                                SendState("update");
                                 Session.AutoAddedFixedRanges.Clear();
-                                Session.AutoAddedFixedRanges.AddRange(Signatures);
+                                Session.AutoAddedFixedRanges.AddRange(_signatures);
                                 //updateVariableRangeToOldOneMinusSignatures();
                             }
                             else
@@ -87,6 +104,7 @@ namespace oxoSharp.Core
                     break;
                 }
             }
+            SendState("done");
             #region Draft
             //while (true)
             //{
@@ -142,14 +160,19 @@ namespace oxoSharp.Core
             #endregion
         }
 
+        private void SendState(string state)
+        {
+            StateCallBack(this, new ProgressChangedEventArgs(0, state));
+        }
+
         private void SaveSignature()
         {
-            Signatures.Add(new int[] { Session.start, Session.end });
+            _signatures.Add(new int[] { Session.start, Session.end });
         }
 
         private bool NextInterval()
         {
-            int[][] undetected = base.ListUndetectedIntervals();
+            int[][] undetected = base.ListUndetectedIntervals(true);
             if (undetected.Length > 0)
             {
                 SetNextIntervalInSession(undetected, GenerateIndex(undetected.Length));

@@ -35,8 +35,11 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -45,6 +48,9 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="UIAutomationProvider" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Core\AutoProcess.cs" />
@@ -85,7 +91,9 @@
       <DependentUpon>frmResult.cs</DependentUpon>
     </Compile>
     <Compile Include="Help.cs" />
-    <Compile Include="IIntervalForm.cs" />
+    <Compile Include="History.cs" />
+    <Compile Include="Interfaces\IIntervalForm.cs" />
+    <Compile Include="Interfaces\IMainForm.cs" />
     <Compile Include="MyList.cs" />
     <Compile Include="SaveAndLoad\Config.cs" />
     <Compile Include="frmAbout.cs">
@@ -141,6 +149,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmAuto.resx">
       <DependentUpon>frmAuto.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="frmConfig.resx">
       <DependentUpon>frmConfig.cs</DependentUpon>
@@ -184,6 +193,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AutoProcessFlow\AutoProcessFlow.csproj">
+      <Project>{69D50B96-F34B-4623-88DC-E90C1B7A2AF5}</Project>
+      <Name>AutoProcessFlow</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

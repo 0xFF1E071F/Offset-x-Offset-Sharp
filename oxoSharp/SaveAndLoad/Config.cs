@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,6 +15,14 @@ namespace oxoSharp
         public bool AutoSaveSessionOnExit = true;
         public bool ReloadLastSessionOnStartup = true;
         public string AV_File = "";
+
+        public string AbsoluteAV_File
+        {
+            get
+            {
+                return Path.GetFullPath(AV_File);
+            }
+        }
         public string AV_CommandLine = "";
         // auto process config
         public bool EnableUserDefinedFixedRange = true;

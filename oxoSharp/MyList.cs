@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace oxoSharp
 {
-    class MyList<T> : List<T>
+    public class MyList<T> : List<T>
     {
         public event Action ModifiedListEventHandler;
 

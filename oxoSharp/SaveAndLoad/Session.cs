@@ -19,8 +19,22 @@ namespace oxoSharp
         public string output;
         public List<int[]> UserDefinedFixedRanges;
         [XmlIgnore]
-        public List<int[]> AutoAddedFixedRanges;
+        public List<int[]> AutoAddedFixedRanges = new List<int[]>();
 
+        public Session Clone()
+        {
+            return new Session()
+            {
+                start = this.start,
+                end = this.end,
+                size = this.size,
+                fileLocation = this.fileLocation,
+                mode = this.mode,
+                value = this.value,
+                output = this.output,
+                UserDefinedFixedRanges = this.UserDefinedFixedRanges.ToList()
+            };
+        }
 
         [XmlElement("mode")]
         public int ModeAsInt
@@ -37,6 +51,17 @@ namespace oxoSharp
             }
         }
 
+        public int Size
+        {
+            get { return (size == 0) ? 1 : size; }
+            set
+            {
+                size = value;
+                if (size == 0)
+                    size = 1;
+            }
+        }
+
         public void SetFixedRangesWithoutCollisionWithVariableRange(List<int[]> UserDefinedFixedRanges)
         {
             this.UserDefinedFixedRanges = NoCollisionRanges(UserDefinedFixedRanges);
@@ -45,7 +70,7 @@ namespace oxoSharp
         {
             this.AutoAddedFixedRanges = NoCollisionRanges(AutoAddedFixedRanges);
         }
-        
+
         public bool isEmpty()
         {
             return !(start != 0 || end != 0 || fileLocation != "" || (UserDefinedFixedRanges != null && UserDefinedFixedRanges.Count > 0));
@@ -62,8 +87,8 @@ namespace oxoSharp
             List<int[]> ExtractedRanges = new List<int[]>();
             int[] TempRange = new int[2];
 
-            if (!FixedRangeIncludedInVariableRange(range))
-                if (FixedRangeEntirelyOutsideVariableRange(range))
+            if (!RangeIncludedInVariableRange(range))
+                if (RangeEntirelyOutsideVariableRange(range))
                     ExtractedRanges.Add(range);
                 else // variable range is partially or entirely inside fixed range
                     ExtractedRanges.AddRange(OuterRanges(range));
@@ -77,19 +102,30 @@ namespace oxoSharp
                     select r).ToArray();
         }
 
-        private bool FixedRangeEntirelyOutsideVariableRange(int[] range)
+        public bool RangeEntirelyOutsideVariableRange(int[] range)
         {
             return range[1] <= this.start || range[0] >= this.end;
         }
 
-        private bool FixedRangeIncludedInVariableRange(int[] range)
+        public bool RangeIncludedInVariableRange(int[] range)
         {
             return range[0] >= this.start && range[1] <= this.end;
         }
 
+        public bool RangePartiallyIncludedInVariableRange(int[] range)
+        {
+            // included and not equal
+            return RangeIncludedInVariableRange(range) && !RangeEqualsVariableRange(range);
+        }
+
+        public bool RangeEqualsVariableRange(int[] range)
+        {
+            return range[0] == this.start && range[1] == this.end;
+        }
+
         internal void AutoCalculateSize()
         {
-            size = GlobalDataAndMethods.AutoCalculateSize(start, end);
+            Size = GlobalDataAndMethods.AutoCalculateSize(start, end);
         }
     }
 }

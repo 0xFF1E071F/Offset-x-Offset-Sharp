@@ -14,6 +14,7 @@ using System.Text.RegularExpressions;
 using System.Diagnostics;
 using System.Threading;
 using oxoSharp.Core;
+using oxoSharp.Interfaces;
 
 namespace oxoSharp
 {
@@ -80,7 +81,7 @@ namespace oxoSharp
      *      
      */
 
-    public partial class frmMain : Form
+    public partial class frmMain : Form,IMainForm
     {
         #region Fields
         private string _originalFormText = "oxoSharp " + GlobalDataAndMethods.currentVersion;
@@ -186,7 +187,7 @@ namespace oxoSharp
                 return false;
             }
 
-            if (session.size <= 0)
+            if (session.Size <= 0)
             {
                 txtSize.Flash();
                 return false;
@@ -197,7 +198,7 @@ namespace oxoSharp
         {
             RemoveTextChangedHandlers();
             LoadFile(session.fileLocation, false, false);
-            SetRangeToGui(session.start, session.end, session.size);
+            SetRangeToGui(session.start, session.end, session.Size);
             txtValue.Text = session.value.ToString("X");
             txtOutput.Text = session.output;
             SetTextChangedHandlers();
@@ -422,7 +423,6 @@ namespace oxoSharp
 
         private void itemClear_Click(object sender, EventArgs e)
         {
-
             if (QuestionMessageBox("Remove all items?"))
                 FixedRanges.Clear();
         }
@@ -441,7 +441,7 @@ namespace oxoSharp
                         break;
                     default:
                         ManyItemsSelected();
-                        break; ;
+                        break;
                 }
                 menuFixedRanges.Show(listView1, e.Location);
             }
@@ -680,8 +680,7 @@ namespace oxoSharp
 
         private bool SetOxoCoreSessionFromGUI()
         {
-            Session session;
-            if (ReadGui(out session) && CheckStartAndEnd(session))
+            if (ReadGui(out Session session) && CheckStartAndEnd(session))
             {
                 progressBar1.Value = 0;
                 // this is a temporary session, so fixed ranges are not changed in GUI
@@ -735,18 +734,16 @@ namespace oxoSharp
             listView1.Items.AddRange((from Range in FixedRanges
                                       where Range.Length >= 2
                                       select new ListViewItem(new string[]
-                                      { 
+                                      {
                                         Range[0].ToString("X"),
                                         Range[1].ToString("X"),
-                                        (Range[1] - Range[0]).ToString("X") 
-                                      }) { Tag = Range }).ToArray());
+                                        (Range[1] - Range[0]).ToString("X")
+                                      })
+                                      { Tag = Range }).ToArray());
         }
         private void UpdateByteMap()
         {
-            int start;
-            int end;
-            int size;
-            if (txtStart.ParseText(out start) /*ParseTxtStart(out start)*/ && txtEnd.ParseText(out end)/*ParseTxtEnd(out end)*/ && txtSize.ParseText(out size)/*ParseTxtSize(out size)*/)
+            if (txtStart.ParseText(out int start) /*ParseTxtStart(out start)*/ && txtEnd.ParseText(out int end)/*ParseTxtEnd(out end)*/ && txtSize.ParseText(out int size)/*ParseTxtSize(out size)*/)
             {
                 if (end > _filesize)
                     end = _filesize;
@@ -779,13 +776,14 @@ namespace oxoSharp
             // Silent mode is used when saving session, in this case the program doesn't
             // complain about the inexistence of files and the unreadabilty of textboxes,
             // it just reads the maximum of informations, saves them and close
-            session = new Session();
+            session = new Session
+            {
+                // read input file
+                fileLocation = txtFileName.Text,
 
-            // read input file
-            session.fileLocation = txtFileName.Text;
-
-            // Of output directory
-            session.output = txtOutput.Text;
+                // Of output directory
+                output = txtOutput.Text
+            };
 
             // complain about the existence of input and output 
             if (!silent)
@@ -826,7 +824,7 @@ namespace oxoSharp
         {
             MessageBox.Show(this, "I couldn't parse " + p);
         }
-        private void progress(object obj, ProgressChangedEventArgs args)
+        private void Progress(object obj, ProgressChangedEventArgs args)
         {
             progressBar1.Value = args.ProgressPercentage;
         }
@@ -859,7 +857,7 @@ namespace oxoSharp
         private void ManyItemsSelected()
         {
             itemMerge.Enabled = SelectedRangesAreAdjacent();
-            itemRemove.Enabled = true;
+            itemRemove.Enabled = itemWriteToVar.Enabled = true;
             itemEdit.Enabled = itemSplit.Enabled = false;
         }
 
@@ -875,12 +873,12 @@ namespace oxoSharp
         private void OneItemSelected()
         {
             itemMerge.Enabled = false;
-            itemRemove.Enabled = itemEdit.Enabled = itemSplit.Enabled = true;
+            itemRemove.Enabled = itemEdit.Enabled = itemSplit.Enabled = itemWriteToVar.Enabled = true;
         }
 
         private void NoItemSelected()
         {
-            itemMerge.Enabled = itemRemove.Enabled = itemEdit.Enabled = itemSplit.Enabled = false;
+            itemMerge.Enabled = itemRemove.Enabled = itemEdit.Enabled = itemSplit.Enabled = itemWriteToVar.Enabled = false;
         }
 
         private void EditRange()
@@ -903,10 +901,11 @@ namespace oxoSharp
         {
             int[] Range = ReadSelectedRange();
             int middle = (Range[0] + Range[1]) / 2;
-            List<int[]> Ranges = new List<int[]>();
-
-            Ranges.Add(new int[] { Range[0], middle });
-            Ranges.Add(new int[] { middle, Range[1] });
+            List<int[]> Ranges = new List<int[]>
+            {
+                new int[] { Range[0], middle },
+                new int[] { middle, Range[1] }
+            };
             FixedRanges.AddRange(Ranges);
             FixedRanges.Remove(Range);
         }
@@ -947,16 +946,18 @@ namespace oxoSharp
             }
         }
 
-        private void RangeOptions(IIntervalForm IntervalForm)
+        public void RangeOptions(IIntervalForm IntervalForm)
         {
             if (IntervalForm.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                Values Values = IntervalForm.DialogValues();
-                if ((RangeAction)Values.Action == RangeAction._defaultrange)
-                    SetRangeToGui(Values.SelectedInterval);
-                else if ((RangeAction)Values.Action == RangeAction._fixedrange)
-                    AddToFixedRanges(Values.SelectedInterval);
-            }
+                SetRangeFromDialogValues(IntervalForm.DialogValues());
+        }
+
+        private void SetRangeFromDialogValues(Values Values)
+        {
+            if ((RangeAction)Values.Action == RangeAction._defaultrange)
+                SetRangeToGui(Values.SelectedInterval);
+            else if ((RangeAction)Values.Action == RangeAction._fixedrange)
+                AddToFixedRanges(Values.SelectedInterval);
         }
 
         private void LoadSessionAs()
@@ -967,8 +968,7 @@ namespace oxoSharp
                     SaveSessionAs();
                 if (openFileDialog2.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
-                    Session session;
-                    if (SaverLoader.LoadSession(out session, openFileDialog2.FileName))
+                    if (SaverLoader.LoadSession(out Session session, openFileDialog2.FileName))
                     {
                         LoadSession(session);
                         InformationMessageBox("Loaded!");
@@ -1032,7 +1032,7 @@ namespace oxoSharp
             get
             {
                 if (_oxoCore == null)
-                    _oxoCore = new oxoCore(new ProgressChangedEventHandler(progress), new RunWorkerCompletedEventHandler(WorkDone));
+                    _oxoCore = new oxoCore(new ProgressChangedEventHandler(Progress), new RunWorkerCompletedEventHandler(WorkDone));
                 return _oxoCore;
             }
         }
@@ -1053,7 +1053,7 @@ namespace oxoSharp
 
         private void autoProcessToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //AutoProcess();
+            AutoProcess();
         }
 
         private void AutoProcess()
@@ -1066,12 +1066,37 @@ namespace oxoSharp
         {
             if (OxoCore.IsBusy() && MessageBox.Show(this, "Busy", "Program working in the background, force stop?", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 OxoCore.StopWork();
-            
+
             if (!OxoCore.IsBusy())
-                using (frmAuto frmAuto = new frmAuto(ReadSession()))
+                using (frmAuto frmAuto = new frmAuto(OxoCore.Session,this))
                 {
                     frmAuto.ShowDialog();
                 }
+        }
+
+        private void itemReadFromVar_Click(object sender, EventArgs e)
+        {
+            txtStart.ParseText(out int start);
+            txtEnd.ParseText(out int end);
+            AddToFixedRanges(start, end);
+        }
+
+        private void itemWriteToVar_Click(object sender, EventArgs e)
+        {
+            int start = int.MaxValue;
+            int end = 0;
+            foreach (ListViewItem lvi in listView1.SelectedItems)
+            {
+                if (lvi.Tag is int[])
+                {
+                    int[] range = (int[])lvi.Tag;
+                    if (range[0] < start)
+                        start = range[0];
+                    if (range[1] > end)
+                        end = range[1];
+                }
+            }
+            SetRangeToGui(start, end);
         }
     }
 }

@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using oxoSharp.Core;
+using oxoSharp.Interfaces;
 
 namespace oxoSharp
 {
@@ -15,6 +16,9 @@ namespace oxoSharp
      * disable "Auto process button" on frmMain when "Go" is pressed
      * (done) maybe oxocore needs to become dynamic
      * (done) frmAuto configs added to main configs (ref in constructor)
+     * add possiblity to resume
+     *      maybe result => use ase default range applies to autprocess and not main windows (makes more sens)
+     * continue autporcess.split
      * 
      */
     public partial class frmAuto : Form
@@ -26,26 +30,69 @@ namespace oxoSharp
                                                   "When we find the first signature we switch between the two ranges (fix the first, vary the second)," +
                                                   "in order to find the second signature\n" +
                                                   "Auto process feature can do this automatically";
-        private Session session;
-        private oxoCore _oxoCore;
-        public frmAuto(Session session)
+        private Session _session;
+        private IMainForm _parent;
+        private AutoProcess _autoProcess;
+        private Dictionary<string, Label> _stateLabels = new Dictionary<string, Label>();
+
+        public frmAuto(Session session, IMainForm mainForm)
         {
             InitializeComponent();
-            this.session = session;
+            this._session = session;
+            this._parent = mainForm;
         }
 
         private void btnStart_Click(object sender, EventArgs e)
         {
             tabControl1.SelectedIndex = 1;
-            AutoProcess auto = new AutoProcess(new ProgressChangedEventHandler(progress), new RunWorkerCompletedEventHandler(WorkDone), true);
-            auto.DoWork();
+
+            Width = 558;
+            UpdateGUI(true);
+
+            if (!AutoProcess.IsBusy())
+                AutoProcess.SetSession(_session.Clone());
+            AutoProcess.DoWork();
+
+            UpdateStatus();
+            ShowConfig();
+        }
+
+        private void ShowConfig()
+        {
+            string mode =
+                AutoProcess.Session.mode.HasFlag(Mode._unknownFromEnd) ? "Unk. from end" :
+                AutoProcess.Session.mode.HasFlag(Mode._unknownFromStart) ? "Unk. from start" :
+                "Fixed";
+            autoprocessflow.SetConfig(mode);
+
+        }
+
+        private void UpdateStatus()
+        {
+            autoprocessflow.Status(
+                GlobalDataAndMethods.OutputFormat(AutoProcess.Session.start),
+                GlobalDataAndMethods.OutputFormat(AutoProcess.Session.end),
+                GlobalDataAndMethods.OutputFormat(AutoProcess.Session.size)
+                );
+        }
+
+        private void UpdateGUI(bool starting)
+        {
+            TopMost = starting;
+            btnStop.Visible = starting;
+            btnStart.Visible = !starting;
+            btnResult.Enabled = !starting;
+            btnRestart.Enabled = !starting;
         }
 
         private void WorkDone(object obj, RunWorkerCompletedEventArgs args)
         {
+            UpdateGUI(false);
+            ShowResults();
         }
         private void progress(object obj, ProgressChangedEventArgs args)
         {
+            progressBar1.Value = args.ProgressPercentage;
         }
 
         private void frmAuto_Load(object sender, EventArgs e)
@@ -55,8 +102,8 @@ namespace oxoSharp
 
         private void FillGui()
         {
-            txtStart.Text = session.start.ToString("X");
-            txtEnd.Text = session.end.ToString("X");
+            txtStart.Text = _session.start.ToString("X");
+            txtEnd.Text = _session.end.ToString("X");
             chkUserDefinedRanges.Checked = GlobalDataAndMethods.Config.EnableUserDefinedFixedRange;
             chkSplitSignature.Checked = GlobalDataAndMethods.Config.AutoGenerateFixedRange;
             txtMaxSize.Text = GlobalDataAndMethods.Config.SignatureMaxSize.ToString("X");
@@ -105,15 +152,55 @@ namespace oxoSharp
             GlobalDataAndMethods.Config.SignatureMaxSize = txtMaxSize.ParseText();
         }
         #region properties
-        public oxoCore OxoCore
+        internal AutoProcess AutoProcess
         {
             get
             {
-                if (OxoCore == null)
-                    _oxoCore = new oxoCore(new ProgressChangedEventHandler(progress), new RunWorkerCompletedEventHandler(WorkDone));
-                return _oxoCore;
+                if (_autoProcess == null)
+                    _autoProcess = new AutoProcess(new ProgressChangedEventHandler(progress), new RunWorkerCompletedEventHandler(WorkDone), StateCallBack, true);
+                return _autoProcess;
             }
         }
         #endregion
+
+        private void StateCallBack(object sender, ProgressChangedEventArgs e)
+        {
+            if (e.UserState is string state)
+            {
+                autoprocessflow.SetState(state);
+            }
+            UpdateStatus();
+        }
+
+        private void btnResult_Click(object sender, EventArgs e)
+        {
+            ShowResults();
+        }
+
+        private void ShowResults()
+        {
+            using (frmResult result = new frmResult(AutoProcess.Singatures))
+                _parent.RangeOptions(result);
+        }
+
+        private void btnRestart_Click(object sender, EventArgs e)
+        {
+            Width = 289;
+            btnStart.Enabled = true;
+            btnResult.Enabled = false;
+            tabControl1.SelectedIndex = 0;
+        }
+
+        private void btnStop_Click(object sender, EventArgs e)
+        {
+            AutoProcess.StopWork();
+            UpdateGUI(false);
+        }
+
+        private void frmAuto_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (AutoProcess.IsBusy())
+                e.Cancel = true;
+        }
     }
 }

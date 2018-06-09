@@ -133,6 +133,9 @@
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.openFileDialog2 = new System.Windows.Forms.OpenFileDialog();
+            this.itemReadFromVar = new System.Windows.Forms.ToolStripMenuItem();
+            this.itemWriteToVar = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -159,7 +162,7 @@
             this.txtFileName.AllowDrop = true;
             this.txtFileName.FlashColor = System.Drawing.Color.Red;
             this.txtFileName.Location = new System.Drawing.Point(60, 42);
-            this.txtFileName.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtFileName.Margin = new System.Windows.Forms.Padding(4);
             this.txtFileName.Name = "txtFileName";
             this.txtFileName.ReadOnly = true;
             this.txtFileName.Size = new System.Drawing.Size(323, 22);
@@ -170,7 +173,7 @@
             // btnLoadFile
             // 
             this.btnLoadFile.Location = new System.Drawing.Point(392, 39);
-            this.btnLoadFile.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnLoadFile.Margin = new System.Windows.Forms.Padding(4);
             this.btnLoadFile.Name = "btnLoadFile";
             this.btnLoadFile.Size = new System.Drawing.Size(47, 28);
             this.btnLoadFile.TabIndex = 2;
@@ -202,7 +205,7 @@
             // 
             this.txtOutput.FlashColor = System.Drawing.Color.Red;
             this.txtOutput.Location = new System.Drawing.Point(60, 76);
-            this.txtOutput.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtOutput.Margin = new System.Windows.Forms.Padding(4);
             this.txtOutput.Name = "txtOutput";
             this.txtOutput.Size = new System.Drawing.Size(280, 22);
             this.txtOutput.TabIndex = 3;
@@ -211,7 +214,7 @@
             // btnGo
             // 
             this.btnGo.Location = new System.Drawing.Point(9, 382);
-            this.btnGo.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnGo.Margin = new System.Windows.Forms.Padding(4);
             this.btnGo.Name = "btnGo";
             this.btnGo.Size = new System.Drawing.Size(79, 33);
             this.btnGo.TabIndex = 22;
@@ -247,7 +250,7 @@
             // progressBar1
             // 
             this.progressBar1.Location = new System.Drawing.Point(9, 422);
-            this.progressBar1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.progressBar1.Margin = new System.Windows.Forms.Padding(4);
             this.progressBar1.Name = "progressBar1";
             this.progressBar1.Size = new System.Drawing.Size(425, 28);
             this.progressBar1.TabIndex = 11;
@@ -257,7 +260,7 @@
             this.radioValue.AutoSize = true;
             this.radioValue.Checked = true;
             this.radioValue.Location = new System.Drawing.Point(35, 42);
-            this.radioValue.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.radioValue.Margin = new System.Windows.Forms.Padding(4);
             this.radioValue.Name = "radioValue";
             this.radioValue.Size = new System.Drawing.Size(101, 21);
             this.radioValue.TabIndex = 15;
@@ -270,7 +273,7 @@
             // 
             this.radioNot.AutoSize = true;
             this.radioNot.Location = new System.Drawing.Point(35, 69);
-            this.radioNot.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.radioNot.Margin = new System.Windows.Forms.Padding(4);
             this.radioNot.Name = "radioNot";
             this.radioNot.Size = new System.Drawing.Size(51, 21);
             this.radioNot.TabIndex = 16;
@@ -283,7 +286,7 @@
             // 
             this.radioRandom.AutoSize = true;
             this.radioRandom.Location = new System.Drawing.Point(35, 97);
-            this.radioRandom.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.radioRandom.Margin = new System.Windows.Forms.Padding(4);
             this.radioRandom.Name = "radioRandom";
             this.radioRandom.Size = new System.Drawing.Size(128, 21);
             this.radioRandom.TabIndex = 17;
@@ -297,7 +300,7 @@
             this.radioFixed.AutoSize = true;
             this.radioFixed.Checked = true;
             this.radioFixed.Location = new System.Drawing.Point(35, 42);
-            this.radioFixed.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.radioFixed.Margin = new System.Windows.Forms.Padding(4);
             this.radioFixed.Name = "radioFixed";
             this.radioFixed.Size = new System.Drawing.Size(91, 21);
             this.radioFixed.TabIndex = 16;
@@ -310,7 +313,7 @@
             // 
             this.radioUnkFromStart.AutoSize = true;
             this.radioUnkFromStart.Location = new System.Drawing.Point(35, 69);
-            this.radioUnkFromStart.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.radioUnkFromStart.Margin = new System.Windows.Forms.Padding(4);
             this.radioUnkFromStart.Name = "radioUnkFromStart";
             this.radioUnkFromStart.Size = new System.Drawing.Size(197, 21);
             this.radioUnkFromStart.TabIndex = 20;
@@ -322,7 +325,7 @@
             // 
             this.RadioUnkFromEnd.AutoSize = true;
             this.RadioUnkFromEnd.Location = new System.Drawing.Point(35, 97);
-            this.RadioUnkFromEnd.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.RadioUnkFromEnd.Margin = new System.Windows.Forms.Padding(4);
             this.RadioUnkFromEnd.Name = "RadioUnkFromEnd";
             this.RadioUnkFromEnd.Size = new System.Drawing.Size(193, 21);
             this.RadioUnkFromEnd.TabIndex = 21;
@@ -334,7 +337,7 @@
             // 
             this.btnHeader.Enabled = false;
             this.btnHeader.Location = new System.Drawing.Point(37, 18);
-            this.btnHeader.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnHeader.Margin = new System.Windows.Forms.Padding(4);
             this.btnHeader.Name = "btnHeader";
             this.btnHeader.Size = new System.Drawing.Size(147, 28);
             this.btnHeader.TabIndex = 11;
@@ -346,7 +349,7 @@
             // 
             this.btnSections.Enabled = false;
             this.btnSections.Location = new System.Drawing.Point(37, 46);
-            this.btnSections.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnSections.Margin = new System.Windows.Forms.Padding(4);
             this.btnSections.Name = "btnSections";
             this.btnSections.Size = new System.Drawing.Size(147, 28);
             this.btnSections.TabIndex = 12;
@@ -358,7 +361,7 @@
             // 
             this.btnEof.Enabled = false;
             this.btnEof.Location = new System.Drawing.Point(37, 73);
-            this.btnEof.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnEof.Margin = new System.Windows.Forms.Padding(4);
             this.btnEof.Name = "btnEof";
             this.btnEof.Size = new System.Drawing.Size(147, 28);
             this.btnEof.TabIndex = 13;
@@ -369,7 +372,7 @@
             // btnFullSiz
             // 
             this.btnFullSiz.Location = new System.Drawing.Point(37, 100);
-            this.btnFullSiz.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnFullSiz.Margin = new System.Windows.Forms.Padding(4);
             this.btnFullSiz.Name = "btnFullSiz";
             this.btnFullSiz.Size = new System.Drawing.Size(147, 28);
             this.btnFullSiz.TabIndex = 14;
@@ -380,7 +383,7 @@
             // btnPlus
             // 
             this.btnPlus.Location = new System.Drawing.Point(107, 106);
-            this.btnPlus.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnPlus.Margin = new System.Windows.Forms.Padding(4);
             this.btnPlus.Name = "btnPlus";
             this.btnPlus.Size = new System.Drawing.Size(29, 25);
             this.btnPlus.TabIndex = 9;
@@ -391,7 +394,7 @@
             // btnMinus
             // 
             this.btnMinus.Location = new System.Drawing.Point(137, 106);
-            this.btnMinus.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnMinus.Margin = new System.Windows.Forms.Padding(4);
             this.btnMinus.Name = "btnMinus";
             this.btnMinus.Size = new System.Drawing.Size(29, 25);
             this.btnMinus.TabIndex = 10;
@@ -402,7 +405,7 @@
             // btnScan
             // 
             this.btnScan.Location = new System.Drawing.Point(93, 382);
-            this.btnScan.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnScan.Margin = new System.Windows.Forms.Padding(4);
             this.btnScan.Name = "btnScan";
             this.btnScan.Size = new System.Drawing.Size(79, 33);
             this.btnScan.TabIndex = 23;
@@ -413,7 +416,7 @@
             // btnResult
             // 
             this.btnResult.Location = new System.Drawing.Point(357, 382);
-            this.btnResult.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnResult.Margin = new System.Windows.Forms.Padding(4);
             this.btnResult.Name = "btnResult";
             this.btnResult.Size = new System.Drawing.Size(79, 33);
             this.btnResult.TabIndex = 24;
@@ -436,7 +439,7 @@
             // button3
             // 
             this.button3.Location = new System.Drawing.Point(351, 74);
-            this.button3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button3.Margin = new System.Windows.Forms.Padding(4);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(88, 27);
             this.button3.TabIndex = 4;
@@ -447,7 +450,7 @@
             // btnAutoSize
             // 
             this.btnAutoSize.Location = new System.Drawing.Point(48, 106);
-            this.btnAutoSize.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnAutoSize.Margin = new System.Windows.Forms.Padding(4);
             this.btnAutoSize.Name = "btnAutoSize";
             this.btnAutoSize.Size = new System.Drawing.Size(57, 25);
             this.btnAutoSize.TabIndex = 8;
@@ -462,7 +465,7 @@
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Controls.Add(this.tabPage4);
             this.tabControl1.Location = new System.Drawing.Point(9, 124);
-            this.tabControl1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabControl1.Margin = new System.Windows.Forms.Padding(4);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(429, 175);
@@ -481,9 +484,9 @@
             this.tabPage1.Controls.Add(this.txtSize);
             this.tabPage1.Controls.Add(this.btnPlus);
             this.tabPage1.Location = new System.Drawing.Point(4, 25);
-            this.tabPage1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPage1.Margin = new System.Windows.Forms.Padding(4);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(4);
             this.tabPage1.Size = new System.Drawing.Size(421, 146);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Variable range";
@@ -496,9 +499,9 @@
             this.groupBox1.Controls.Add(this.btnEof);
             this.groupBox1.Controls.Add(this.btnFullSiz);
             this.groupBox1.Location = new System.Drawing.Point(185, 4);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
             this.groupBox1.Size = new System.Drawing.Size(219, 135);
             this.groupBox1.TabIndex = 30;
             this.groupBox1.TabStop = false;
@@ -508,7 +511,7 @@
             // 
             this.txtStart.FlashColor = System.Drawing.Color.Red;
             this.txtStart.Location = new System.Drawing.Point(49, 11);
-            this.txtStart.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtStart.Margin = new System.Windows.Forms.Padding(4);
             this.txtStart.MaxLength = 8;
             this.txtStart.Name = "txtStart";
             this.txtStart.Size = new System.Drawing.Size(116, 22);
@@ -519,7 +522,7 @@
             // 
             this.txtEnd.FlashColor = System.Drawing.Color.Red;
             this.txtEnd.Location = new System.Drawing.Point(49, 43);
-            this.txtEnd.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtEnd.Margin = new System.Windows.Forms.Padding(4);
             this.txtEnd.MaxLength = 8;
             this.txtEnd.Name = "txtEnd";
             this.txtEnd.Size = new System.Drawing.Size(116, 22);
@@ -530,7 +533,7 @@
             // 
             this.txtSize.FlashColor = System.Drawing.Color.Red;
             this.txtSize.Location = new System.Drawing.Point(49, 74);
-            this.txtSize.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtSize.Margin = new System.Windows.Forms.Padding(4);
             this.txtSize.MaxLength = 8;
             this.txtSize.Name = "txtSize";
             this.txtSize.Size = new System.Drawing.Size(116, 22);
@@ -541,9 +544,9 @@
             // 
             this.tabPage2.Controls.Add(this.listView1);
             this.tabPage2.Location = new System.Drawing.Point(4, 25);
-            this.tabPage2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPage2.Margin = new System.Windows.Forms.Padding(4);
             this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(4);
             this.tabPage2.Size = new System.Drawing.Size(421, 146);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Fixed ranges";
@@ -558,7 +561,7 @@
             this.listView1.FullRowSelect = true;
             this.listView1.GridLines = true;
             this.listView1.Location = new System.Drawing.Point(5, 10);
-            this.listView1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.listView1.Margin = new System.Windows.Forms.Padding(4);
             this.listView1.Name = "listView1";
             this.listView1.Size = new System.Drawing.Size(404, 118);
             this.listView1.TabIndex = 0;
@@ -591,7 +594,7 @@
             this.tabPage3.Controls.Add(this.radioNot);
             this.tabPage3.Controls.Add(this.txtValue);
             this.tabPage3.Location = new System.Drawing.Point(4, 25);
-            this.tabPage3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPage3.Margin = new System.Windows.Forms.Padding(4);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Size = new System.Drawing.Size(421, 146);
             this.tabPage3.TabIndex = 2;
@@ -612,7 +615,7 @@
             // 
             this.txtValue.FlashColor = System.Drawing.Color.Red;
             this.txtValue.Location = new System.Drawing.Point(143, 41);
-            this.txtValue.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtValue.Margin = new System.Windows.Forms.Padding(4);
             this.txtValue.MaxLength = 2;
             this.txtValue.Name = "txtValue";
             this.txtValue.Size = new System.Drawing.Size(39, 22);
@@ -629,7 +632,7 @@
             this.tabPage4.Controls.Add(this.label6);
             this.tabPage4.Controls.Add(this.radioUnkFromStart);
             this.tabPage4.Location = new System.Drawing.Point(4, 25);
-            this.tabPage4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPage4.Margin = new System.Windows.Forms.Padding(4);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Size = new System.Drawing.Size(421, 146);
             this.tabPage4.TabIndex = 3;
@@ -639,7 +642,7 @@
             // button4
             // 
             this.button4.Location = new System.Drawing.Point(243, 95);
-            this.button4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button4.Margin = new System.Windows.Forms.Padding(4);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(27, 25);
             this.button4.TabIndex = 24;
@@ -650,7 +653,7 @@
             // button2
             // 
             this.button2.Location = new System.Drawing.Point(243, 66);
-            this.button2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button2.Margin = new System.Windows.Forms.Padding(4);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(27, 25);
             this.button2.TabIndex = 23;
@@ -661,7 +664,7 @@
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(243, 39);
-            this.button1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button1.Margin = new System.Windows.Forms.Padding(4);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(27, 25);
             this.button1.TabIndex = 22;
@@ -850,6 +853,7 @@
             // 
             // menuFixedRanges
             // 
+            this.menuFixedRanges.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuFixedRanges.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.itemAdd,
             this.itemRemove,
@@ -858,9 +862,12 @@
             this.itemEdit,
             this.itemSplit,
             this.itemMerge,
-            this.itemCleanUp});
+            this.itemCleanUp,
+            this.toolStripSeparator8,
+            this.itemReadFromVar,
+            this.itemWriteToVar});
             this.menuFixedRanges.Name = "menuFixedRanges";
-            this.menuFixedRanges.Size = new System.Drawing.Size(290, 178);
+            this.menuFixedRanges.Size = new System.Drawing.Size(290, 260);
             // 
             // itemAdd
             // 
@@ -919,7 +926,7 @@
             // 
             this.byteMap1.endOffset = 0;
             this.byteMap1.Location = new System.Drawing.Point(12, 304);
-            this.byteMap1.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.byteMap1.Margin = new System.Windows.Forms.Padding(5);
             this.byteMap1.Name = "byteMap1";
             this.byteMap1.Size = new System.Drawing.Size(421, 71);
             this.byteMap1.SizeOfTheFile = 0;
@@ -929,6 +936,7 @@
             // 
             // statusStrip1
             // 
+            this.statusStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel2,
             this.lblPE,
@@ -1000,6 +1008,7 @@
             // 
             // menuStrip1
             // 
+            this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.sessionToolStripMenuItem,
             this.toolsToolStripMenuItem,
@@ -1027,38 +1036,38 @@
             // saveToolStripMenuItem1
             // 
             this.saveToolStripMenuItem1.Name = "saveToolStripMenuItem1";
-            this.saveToolStripMenuItem1.Size = new System.Drawing.Size(222, 24);
+            this.saveToolStripMenuItem1.Size = new System.Drawing.Size(228, 26);
             this.saveToolStripMenuItem1.Text = "New";
             this.saveToolStripMenuItem1.Click += new System.EventHandler(this.saveToolStripMenuItem1_Click);
             // 
             // loadToolStripMenuItem
             // 
             this.loadToolStripMenuItem.Name = "loadToolStripMenuItem";
-            this.loadToolStripMenuItem.Size = new System.Drawing.Size(219, 6);
+            this.loadToolStripMenuItem.Size = new System.Drawing.Size(225, 6);
             // 
             // saveToolStripMenuItem2
             // 
             this.saveToolStripMenuItem2.Name = "saveToolStripMenuItem2";
-            this.saveToolStripMenuItem2.Size = new System.Drawing.Size(222, 24);
+            this.saveToolStripMenuItem2.Size = new System.Drawing.Size(228, 26);
             this.saveToolStripMenuItem2.Text = "Save";
             this.saveToolStripMenuItem2.Click += new System.EventHandler(this.saveToolStripMenuItem2_Click);
             // 
             // loadToolStripMenuItem1
             // 
             this.loadToolStripMenuItem1.Name = "loadToolStripMenuItem1";
-            this.loadToolStripMenuItem1.Size = new System.Drawing.Size(222, 24);
+            this.loadToolStripMenuItem1.Size = new System.Drawing.Size(228, 26);
             this.loadToolStripMenuItem1.Text = "Load";
             this.loadToolStripMenuItem1.Click += new System.EventHandler(this.loadToolStripMenuItem1_Click);
             // 
             // toolStripSeparator7
             // 
             this.toolStripSeparator7.Name = "toolStripSeparator7";
-            this.toolStripSeparator7.Size = new System.Drawing.Size(219, 6);
+            this.toolStripSeparator7.Size = new System.Drawing.Size(225, 6);
             // 
             // reloadToolStripMenuItem
             // 
             this.reloadToolStripMenuItem.Name = "reloadToolStripMenuItem";
-            this.reloadToolStripMenuItem.Size = new System.Drawing.Size(222, 24);
+            this.reloadToolStripMenuItem.Size = new System.Drawing.Size(228, 26);
             this.reloadToolStripMenuItem.Text = "Load previous session";
             this.reloadToolStripMenuItem.Click += new System.EventHandler(this.reloadToolStripMenuItem_Click);
             // 
@@ -1068,20 +1077,20 @@
             this.optionToolStripMenuItem,
             this.autoProcessToolStripMenuItem});
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
-            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(57, 24);
+            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(56, 24);
             this.toolsToolStripMenuItem.Text = "&Tools";
             // 
             // optionToolStripMenuItem
             // 
             this.optionToolStripMenuItem.Name = "optionToolStripMenuItem";
-            this.optionToolStripMenuItem.Size = new System.Drawing.Size(317, 24);
+            this.optionToolStripMenuItem.Size = new System.Drawing.Size(323, 26);
             this.optionToolStripMenuItem.Text = "Options";
             this.optionToolStripMenuItem.Click += new System.EventHandler(this.optionToolStripMenuItem_Click);
             // 
             // autoProcessToolStripMenuItem
             // 
             this.autoProcessToolStripMenuItem.Name = "autoProcessToolStripMenuItem";
-            this.autoProcessToolStripMenuItem.Size = new System.Drawing.Size(317, 24);
+            this.autoProcessToolStripMenuItem.Size = new System.Drawing.Size(323, 26);
             this.autoProcessToolStripMenuItem.Text = "Auto process (not implemented yet)";
             this.autoProcessToolStripMenuItem.Click += new System.EventHandler(this.autoProcessToolStripMenuItem_Click);
             // 
@@ -1101,6 +1110,25 @@
             // 
             this.openFileDialog2.Filter = "Session|*.xml|All files|*.*";
             this.openFileDialog2.Title = "Load session";
+            // 
+            // itemReadFromVar
+            // 
+            this.itemReadFromVar.Name = "itemReadFromVar";
+            this.itemReadFromVar.Size = new System.Drawing.Size(289, 24);
+            this.itemReadFromVar.Text = "Add from variable range";
+            this.itemReadFromVar.Click += new System.EventHandler(this.itemReadFromVar_Click);
+            // 
+            // itemWriteToVar
+            // 
+            this.itemWriteToVar.Name = "itemWriteToVar";
+            this.itemWriteToVar.Size = new System.Drawing.Size(289, 24);
+            this.itemWriteToVar.Text = "Set as variable range";
+            this.itemWriteToVar.Click += new System.EventHandler(this.itemWriteToVar_Click);
+            // 
+            // toolStripSeparator8
+            // 
+            this.toolStripSeparator8.Name = "toolStripSeparator8";
+            this.toolStripSeparator8.Size = new System.Drawing.Size(286, 6);
             // 
             // frmMain
             // 
@@ -1123,7 +1151,7 @@
             this.Controls.Add(this.txtFileName);
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.Name = "frmMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -1254,6 +1282,9 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator7;
         private System.Windows.Forms.ToolStripMenuItem reloadToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem autoProcessToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator8;
+        private System.Windows.Forms.ToolStripMenuItem itemReadFromVar;
+        private System.Windows.Forms.ToolStripMenuItem itemWriteToVar;
     }
 }
 

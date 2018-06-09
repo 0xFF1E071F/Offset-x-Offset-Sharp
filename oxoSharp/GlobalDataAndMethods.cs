@@ -84,10 +84,10 @@ namespace oxoSharp
         }
         internal static void Scan(bool WaitForExit = false)
         {
-            if (Config.AV_File == "" || !File.Exists(Config.AV_File))
+            if (Config.AV_File == "" || !File.Exists(Config.AbsoluteAV_File))
                 ShowConfigForm(true);
             else
-                GlobalDataAndMethods.RunProcess(Config.AV_File, Config.AV_CommandLine,false,WaitForExit);
+                GlobalDataAndMethods.RunProcess(Config.AbsoluteAV_File, Config.AV_CommandLine,false,WaitForExit);
         }
         internal static void ShowConfigForm(bool FlashTxtAv = false)
         {

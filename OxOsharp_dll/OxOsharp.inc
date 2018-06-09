@@ -38,9 +38,10 @@ endif
 
 .code
 Random proc uses edx
+	push eax
 	rdtsc	
-	.if !al
-		inc al ; insure a non null random value
-	.endif
+	or al,1 ; ensure a non null random value
+	mov byte ptr[esp],al
+	pop eax
 	Ret
 Random EndP
